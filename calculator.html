@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate EDD</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Estimated Date of Delivery Calculator</h1>
+    </header>
+
+    <main>
+    <div id="inputForm">
+        <!-- Input for LMP -->
+        <div class="input-group">
+            <label for="lmp">When was the first day of the last menstrual period?</label>
+            <div class="input-wrapper">
+                <input type="date" id="lmp" name="lmp">
+                <div>
+                    <label for="unknownLmp">Unknown</label>
+                    <input type="checkbox" id="unknownLmp" name="unknownLmp" onchange="handleCheckboxChange('lmp')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for LNMP -->
+        <div class="input-group">
+            <label for="lnmp">When was the first day of the last normal menstrual period?</label>
+            <div class="input-wrapper">
+                <input type="date" id="lnmp" name="lnmp">
+                <div>
+                    <label for="unknownLnmp">Unknown</label>
+                    <input type="checkbox" id="unknownLnmp" name="unknownLnmp" onchange="handleCheckboxChange('lnmp')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for Cycle -->
+        <div class="input-group">
+            <label for="cycle">What is the length of the patient's normal cycle, in days?</label>
+            <div class="input-wrapper">
+                <input type="number" id="cycle" name="cycle" placeholder="28">
+                <div>
+                    <label for="unknownCycle">Unknown</label>
+                    <input type="checkbox" id="unknownCycle" name="unknownCycle" onchange="handleCheckboxChange('cycle')">
+                </div>    
+            </div>
+        </div>
+
+        <!-- Input for Luteal -->
+        <div class="input-group">
+            <label for="luteal">What is the length of the patient's average luteal phase, in days?</label>
+            <div class="input-wrapper">
+                <input type="number" id="luteal" name="luteal" placeholder="14">
+                <div>
+                    <label for="unknownLuteal">Unknown</label>
+                    <input type="checkbox" id="unknownLuteal" name="unknownLuteal" onchange="handleCheckboxChange('luteal')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for PPT -->
+        <div class="input-group">
+            <label for="ppt">When did the patient have a positive pregnancy test?</label>
+            <div class="input-wrapper">
+                <input type="date" id="ppt" name="ppt">
+                <div>
+                    <label for="unknownPpt">Unknown</label>
+                    <input type="checkbox" id="unknownPpt" name="unknownPpt" onchange="handleCheckboxChange('ppt')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for FPS -->
+        <div class="input-group">
+            <label for="fps">When did she first start developing symptoms of pregnancy?</label>
+            <div class="input-wrapper">
+                <input type="date" id="fps" name="fps">
+                <div>
+                    <label for="unknownFps">Unknown</label>
+                    <input type="checkbox" id="unknownFps" name="unknownFps" onchange="handleCheckboxChange('fps')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for Ultrasound -->
+        <div class="input-group">
+            <label for="ultrasound">When was the patient's most recent ultrasound?</label>
+            <div class="input-wrapper">
+                <input type="date" id="ultrasound" name="ultrasound">
+                <div>
+                <label for="unknownUltrasound">Unknown</label>
+                <input type="checkbox" id="unknownUltrasound" name="unknownUltrasound" onchange="handleCheckboxChange('ultrasound')">
+                </div>
+            </div>
+        </div>
+
+        <!-- Input for Gestational Age -->
+        <div class="input-group">
+            <label for="gestage">What was the gestational age estimated at the ultrasound, in weeks?</label>
+            <div class="input-wrapper">
+            <input type="number" id="gestage" name="gestage" placeholder="6">
+                <div>
+                    <label for="unknownGestage">Unknown</label>
+                    <input type="checkbox" id="unknownGestage" name="unknownGestage" onchange="handleCheckboxChange('gestage')">
+                </div>
+            </div>
+        </div>
+        <button onclick="saveAndDisplay()">Submit</button>
+    </div>
+    
+    <!-- Results box -->
+    <div>
+        <h2>Results</h2>
+        <div id="output">
+    
+        </div>
+    </div>
+
+    <!-- Information box -->
+    <div id="info-box">
+        <h2>Information</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi tempora natus enim, quam molestiae perspiciatis aliquam vero. Itaque cumque vitae incidunt praesentium? Quam aut nostrum cumque ratione nobis, minus sequi?</p>
+        <p id="info-text"></p>
+    </div>
+
+    </main>
+
+    <script>
+        function saveAndDisplay() {
+            // Get user input
+            var lmpInput = document.getElementById('lmp').value;
+            var lnmpInput = document.getElementById('lnmp').value;
+            var cycleInput = document.getElementById('cycle').value;
+            var lutealInput = document.getElementById('luteal').value;
+            var pptInput = document.getElementById('ppt').value;
+            var fpsInput = document.getElementById('fps').value;
+            var ultrasoundInput = document.getElementById('ultrasound').value;
+            var gestageInput = document.getElementById('gestage').value;
+
+            // Check 'unknown' checkboxes
+            var unknownLmp = document.getElementById('unknownLmp').checked;
+            var unknownLnmp = document.getElementById('unknownLnmp').checked;
+            var unknownCycle = document.getElementById('unknownCycle').checked;
+            var unknownLuteal = document.getElementById('unknownLuteal').checked;
+            var unknownPpt = document.getElementById('unknownPpt').checked;
+            var unknownFps = document.getElementById('unknownFps').checked;
+            var unknownUltrasound = document.getElementById('unknownUltrasound').checked;
+            var unknownGestage = document.getElementById('unknownGestage').checked;
+
+            // an array that allows you to pass all of the inputs at once to another function
+            var savedInputs = [];
+            savedInputs.push(lmpInput);
+            savedInputs.push(lnmpInput);
+            savedInputs.push(cycleInput);
+            savedInputs.push(lutealInput);
+            savedInputs.push(pptInput);
+            savedInputs.push(fpsInput);
+            savedInputs.push(ultrasoundInput);
+            savedInputs.push(gestageInput);
+
+            // Display the saved input
+            displaySavedInputs(savedInputs);
+
+            var formattedResults = [];
+
+            // Function to format the result based on input and checkbox status
+            function formatResult(input, unknownCheckbox) {
+                return unknownCheckbox ? `[${input}] is unknown` : input;
+            }
+
+            // Format and push each input to the array
+            formattedResults.push(formatResult(lmpInput, unknownLmp));
+            formattedResults.push(formatResult(lnmpInput, unknownLnmp));
+            formattedResults.push(formatResult(cycleInput, unknownCycle));
+            formattedResults.push(formatResult(lutealInput, unknownLuteal));
+            formattedResults.push(formatResult(pptInput, unknownPpt));
+            formattedResults.push(formatResult(fpsInput, unknownFps));
+            formattedResults.push(formatResult(ultrasoundInput, unknownUltrasound));
+            formattedResults.push(formatResult(gestageInput, unknownGestage));
+
+            // Display the formatted results
+            displayFormattedResults(formattedResults);
+        }
+
+        function displaySavedInputs(inputs) {
+            // Clear previous content
+            document.getElementById('output').innerHTML = "";
+
+            // Display each saved input
+            inputs.forEach(function (input) {
+                var p = document.createElement('p');
+                p.textContent = input;
+                document.getElementById('output').appendChild(p);
+            });
+        }
+
+        function displayFormattedResults(results) {
+            // Clear previous content
+            document.getElementById('output').innerHTML = "";
+    
+            // Display each formatted result
+            results.forEach(function (result) {
+                var p = document.createElement('p');
+                p.textContent = result;
+                document.getElementById('output').appendChild(p);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -13,8 +13,10 @@
         <h1>Estimated Date of Delivery Calculator</h1>
     </header>
 
+    <!-- prob with this file is that form autosubmits (since removed, but it is still missing the js)-->
+
     <main>
-        <form>
+        <div id="inputForm">
             <!-- Input for LMP -->
             <div class="input-group">
                 <label for="lmp">When was the first day of the last menstrual period?</label>
@@ -110,8 +112,8 @@
                 </div>
             </div>
 
-            <button type="button" onclick="submitForm()">Submit</button>
-        </form>
+            <button type="submit" onclick="saveAndDisplay()">Submit</button>
+        </div>
 
         <!-- Results box -->
         <div id="results-box">
@@ -126,9 +128,17 @@
             <p id="info-text"></p>
         </div>
 
-        <script src="script.js"></script>
+        <div id="output-box">
+            <h2>Results</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi tempora natus enim, quam molestiae perspiciatis aliquam vero.</p>
+            <p id="output"></p>
+        </div>
 
-        <script>
+
+        <!-- if you want to use script.js instead of <script> uncomment this. you can also put the css in this same file with <style> -->
+        <!-- <script src="script.js"></script> -->
+
+        <!-- <script>
             function handleCheckboxChange(inputId) {
                 var inputElement = document.getElementById(inputId);
                 var checkboxId = "unknown" + inputId.charAt(0).toUpperCase() + inputId.slice(1);
@@ -139,6 +149,32 @@
                 } else {
                     inputElement.disabled = false;
                 }
+            }
+            
+            function submitForm() {
+                // Get input values
+ 
+            }
+        </script> -->
+
+        <script>
+            function saveAndDisplay() {
+                var userInput = document.getElementById('lmp').value;
+    
+                var savedInputs = [];
+                savedInputs.push(userInput);
+    
+                displaySavedInputs(savedInputs);
+            }
+    
+            function displaySavedInputs(inputs) {
+                document.getElementById('output').innerHTML = "";
+    
+                inputs.forEach(function (input) {
+                    var p = document.createElement('p');
+                    p.textContent = input;
+                    document.getElementById('output').appendChild(p);
+                });
             }
         </script>
     </main>
