@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate EDD</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Estimated Date of Delivery Calculator</h1>
+    </header>
+
+    <main>
+        <form>
+            <!-- Input for LMP -->
+            <div class="input-group">
+                <label for="lmp">When was the first day of the last menstrual period?</label>
+                <div class="input-wrapper">
+                    <input type="date" id="lmp" name="lmp">
+                    <div>
+                        <label for="unknownLmp">Unknown</label>
+                        <input type="checkbox" id="unknownLmp" name="unknownLmp" onchange="handleCheckboxChange('lmp')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for LNMP -->
+            <div class="input-group">
+                <label for="lnmp">When was the first day of the last normal menstrual period?</label>
+                <div class="input-wrapper">
+                    <input type="date" id="lnmp" name="lnmp">
+                    <div>
+                        <label for="unknownLnmp">Unknown</label>
+                        <input type="checkbox" id="unknownLnmp" name="unknownLnmp" onchange="handleCheckboxChange('lnmp')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for Cycle -->
+            <div class="input-group">
+                <label for="cycle">What is the length of the patient's normal cycle, in days?</label>
+                <div class="input-wrapper">
+                    <input type="number" id="cycle" name="cycle" placeholder="28">
+                    <div>
+                        <label for="unknownCycle">Unknown</label>
+                        <input type="checkbox" id="unknownCycle" name="unknownCycle" onchange="handleCheckboxChange('cycle')">
+                    </div>    
+                </div>
+            </div>
+
+            <!-- Input for Luteal -->
+            <div class="input-group">
+                <label for="luteal">What is the length of the patient's average luteal phase, in days?</label>
+                <div class="input-wrapper">
+                    <input type="number" id="luteal" name="luteal" placeholder="14">
+                    <div>
+                        <label for="unknownLuteal">Unknown</label>
+                        <input type="checkbox" id="unknownLuteal" name="unknownLuteal" onchange="handleCheckboxChange('luteal')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for PPT -->
+            <div class="input-group">
+                <label for="ppt">When did the patient have a positive pregnancy test?</label>
+                <div class="input-wrapper">
+                    <input type="date" id="ppt" name="ppt">
+                    <div>
+                        <label for="unknownPpt">Unknown</label>
+                        <input type="checkbox" id="unknownPpt" name="unknownPpt" onchange="handleCheckboxChange('ppt')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for FPS -->
+            <div class="input-group">
+                <label for="fps">When did she first start developing symptoms of pregnancy?</label>
+                <div class="input-wrapper">
+                    <input type="date" id="fps" name="fps">
+                    <div>
+                        <label for="unknownFps">Unknown</label>
+                        <input type="checkbox" id="unknownFps" name="unknownFps" onchange="handleCheckboxChange('fps')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input for Ultrasound -->
+            <div class="input-group">
+                <label for="ultrasound">When was the patient's most recent ultrasound?</label>
+                <div class="input-wrapper">
+                    <input type="date" id="ultrasound" name="ultrasound">
+                    <div>
+                    <label for="unknownUltrasound">Unknown</label>
+                    <input type="checkbox" id="unknownUltrasound" name="unknownUltrasound" onchange="handleCheckboxChange('ultrasound')">
+                    </div>
+                </div>
+            </div>
+            <!-- Input for Gestational Age -->
+            <div class="input-group">
+                <label for="gestage">What was the gestational age estimated at the ultrasound, in weeks?</label>
+                <div class="input-wrapper">
+                <input type="number" id="gestage" name="gestage" placeholder="6">
+                    <div>
+                        <label for="unknownGestage">Unknown</label>
+                        <input type="checkbox" id="unknownGestage" name="unknownGestage" onchange="handleCheckboxChange('gestage')">
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+
+        <!-- Results box -->
+        <div id="results-box">
+            <h2>Results</h2>
+            <p id="result-text"></p>
+        </div>
+
+        <!-- Information box -->
+        <div id="info-box">
+            <h2>Information</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi tempora natus enim, quam molestiae perspiciatis aliquam vero. Itaque cumque vitae incidunt praesentium? Quam aut nostrum cumque ratione nobis, minus sequi?</p>
+            <p id="info-text"></p>
+        </div>
+
+        <script src="script.js"></script>
+
+        <script>
+            function handleCheckboxChange(inputId) {
+                var inputElement = document.getElementById(inputId);
+                var checkboxId = "unknown" + inputId.charAt(0).toUpperCase() + inputId.slice(1);
+                var checkboxElement = document.getElementById(checkboxId);
+            
+                if (checkboxElement.checked) {
+                    inputElement.disabled = true;
+                } else {
+                    inputElement.disabled = false;
+                }
+            }
+        </script>
+    </main>
+</body>
+</html>
